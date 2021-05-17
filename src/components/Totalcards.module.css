@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-.myheader nav{
+
+.Totalcards {
     background-color: #222222;
     color: white;
     margin: 5px;
+    text-align: center;
     font-family: 'Roboto', sans-serif;
 }
-

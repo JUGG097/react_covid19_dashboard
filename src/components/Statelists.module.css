@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-.myheader nav{
+
+.statelists {
     background-color: #222222;
     color: white;
-    margin: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+    border-bottom: white solid 1px;
     font-family: 'Roboto', sans-serif;
 }
 

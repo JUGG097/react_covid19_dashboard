@@ -6,9 +6,9 @@ const Header = () => {
 		<div className={styles.myheader}>
 			<nav className="navbar">
 				<a className="navbar-brand" href>
-					Covid Dashboard | Nigeria
+					Nigeria Covid-19 Cases Data
 				</a>
-				<a className="navbar-brand ml-auto" href>
+				<a className="nav" href>
 					NCDC
 				</a>
 			</nav>
