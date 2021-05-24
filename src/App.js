@@ -78,7 +78,10 @@ function App() {
 			) : (
 				<div className="row">
 					<div className="col-sm-3 mt-3">
-						<div style={{ height: "400px", overflow: "scroll" }}>
+						<div
+							style={{ height: "400px", overflowY: "scroll" }}
+							id="scrollStyle1"
+						>
 							<Confirmedcases
 								data={confirmedCases}
 								count={totalConfirmed}
@@ -113,12 +116,18 @@ function App() {
 						</div>
 					</div>
 					<div className="col-sm-3 mt-3">
-						<div style={{ height: "400px", overflow: "scroll" }}>
+						<div
+							style={{ height: "400px", overflowY: "scroll" }}
+							id="scrollStyle1"
+						>
 							<Deaths data={deathCases} count={totalDeaths} />
 						</div>
 					</div>
 					<div className="col-sm-3 mt-3">
-						<div style={{ height: "400px", overflow: "scroll" }}>
+						<div
+							style={{ height: "400px", overflowY: "scroll" }}
+							id="scrollStyle1"
+						>
 							<Recovered
 								data={recoveredCases}
 								count={totalRecovered}
