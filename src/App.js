@@ -76,65 +76,73 @@ function App() {
 					</p>
 				</div>
 			) : (
-				<div className="row">
-					<div className="col-sm-3 mt-3">
-						<div
-							style={{ height: "400px", overflowY: "scroll" }}
-							id="scrollStyle1"
-						>
-							<Confirmedcases
-								data={confirmedCases}
-								count={totalConfirmed}
-							/>
-						</div>
-					</div>
-					<div className="col-sm-3 mt-3">
-						<div className="text-center">
-							<div class="embed-responsive embed-responsive-4by3">
-								<iframe
-									className="embed-responsive-item"
-									src="https://folium-choropleth-map.herokuapp.com"
-									title="Chloropeth Map"
-									allowfullscreen
+				<>
+					{/* Covid-19 data by state */}
+					<div className="row">
+						{/* custom scrollbars */}
+						{/* https://codepen.io/devstreak/pen/dMYgeO */}
+						<div className="col-sm-3 mt-3">
+							<div
+								style={{ height: "400px", overflowY: "scroll" }}
+								id="scrollStyle1"
+							>
+								<Confirmedcases
+									data={confirmedCases}
+									count={totalConfirmed}
 								/>
 							</div>
-							<button
-								className="btn btn-primary"
-								style={{
-									margin: 0,
-									backgroundColor: "orange",
-								}}
-							>
-								<a
-									href="https://folium-choropleth-map.herokuapp.com"
-									target="_blank"
-									rel="noreferrer"
+						</div>
+						<div className="col-sm-3 mt-3">
+							<div className="text-center">
+								<div class="embed-responsive embed-responsive-4by3">
+									<iframe
+										className="embed-responsive-item"
+										src="https://folium-choropleth-map.herokuapp.com"
+										title="Chloropeth Map"
+										allowfullscreen
+									/>
+								</div>
+								<button
+									className="btn btn-primary"
+									style={{
+										margin: 0,
+										backgroundColor: "orange",
+									}}
 								>
-									Launch Map
-								</a>
-							</button>
+									<a
+										href="https://folium-choropleth-map.herokuapp.com"
+										target="_blank"
+										rel="noreferrer"
+									>
+										Launch Map
+									</a>
+								</button>
+							</div>
+						</div>
+						<div className="col-sm-3 mt-3">
+							<div
+								style={{ height: "400px", overflowY: "scroll" }}
+								id="scrollStyle1"
+							>
+								<Deaths data={deathCases} count={totalDeaths} />
+							</div>
+						</div>
+						<div className="col-sm-3 mt-3">
+							<div
+								style={{ height: "400px", overflowY: "scroll" }}
+								id="scrollStyle1"
+							>
+								<Recovered
+									data={recoveredCases}
+									count={totalRecovered}
+								/>
+							</div>
 						</div>
 					</div>
-					<div className="col-sm-3 mt-3">
-						<div
-							style={{ height: "400px", overflowY: "scroll" }}
-							id="scrollStyle1"
-						>
-							<Deaths data={deathCases} count={totalDeaths} />
-						</div>
-					</div>
-					<div className="col-sm-3 mt-3">
-						<div
-							style={{ height: "400px", overflowY: "scroll" }}
-							id="scrollStyle1"
-						>
-							<Recovered
-								data={recoveredCases}
-								count={totalRecovered}
-							/>
-						</div>
-					</div>
-				</div>
+
+					{/* Covid-19 data based charts */}
+					<div className="row"></div>
+				</>
 			)}
 		</div>
 	);
