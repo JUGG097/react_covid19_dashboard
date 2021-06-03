@@ -7,6 +7,7 @@ import Deaths from "./components/Deaths";
 import Recovered from "./components/Recovered";
 import axios from "axios";
 import loadingGif from "./img/Bean_Eater_Loading.svg";
+import BarCharts from "./components/BarCharts";
 
 function App() {
 	const [confirmedCases, setConfirmedCases] = useState([]);
@@ -23,10 +24,14 @@ function App() {
 			.then((res) => {
 				console.log(res.data);
 				let statename;
+				let statelist = [];
+				let confirmedNumber = [];
 				let confirmedCasesArray = [];
 				let deathCasesArray = [];
 				let recoveredCasesArray = [];
 				for (statename of Object.keys(res.data.states)) {
+					// statelist.push(statename);
+					// confirmedNumber.push()
 					confirmedCasesArray.push({
 						state: statename,
 						number: res.data.states[statename][0]["confirmed"],
@@ -81,18 +86,15 @@ function App() {
 					<div className="row">
 						{/* custom scrollbars */}
 						{/* https://codepen.io/devstreak/pen/dMYgeO */}
-						<div className="col-sm-3 mt-3">
-							<div
-								style={{ height: "400px", overflowY: "scroll" }}
-								id="scrollStyle1"
-							>
+						<div className="col-sm-3 mt-5">
+							<div>
 								<Confirmedcases
 									data={confirmedCases}
 									count={totalConfirmed}
 								/>
 							</div>
 						</div>
-						<div className="col-sm-3 mt-3">
+						<div className="col-sm-3 mt-5">
 							<div className="text-center">
 								<div class="embed-responsive embed-responsive-4by3">
 									<iframe
@@ -119,19 +121,13 @@ function App() {
 								</button>
 							</div>
 						</div>
-						<div className="col-sm-3 mt-3">
-							<div
-								style={{ height: "400px", overflowY: "scroll" }}
-								id="scrollStyle1"
-							>
+						<div className="col-sm-3 mt-5">
+							<div>
 								<Deaths data={deathCases} count={totalDeaths} />
 							</div>
 						</div>
-						<div className="col-sm-3 mt-3">
-							<div
-								style={{ height: "400px", overflowY: "scroll" }}
-								id="scrollStyle1"
-							>
+						<div className="col-sm-3 mt-5 pb-2">
+							<div>
 								<Recovered
 									data={recoveredCases}
 									count={totalRecovered}
@@ -141,7 +137,18 @@ function App() {
 					</div>
 
 					{/* Covid-19 data based charts */}
-					<div className="row"></div>
+					<h3>Charts</h3>
+					<div className="row text-center">
+						<div className="col-sm-3 mt-5 p-3">
+							<div
+								style={{
+									backgroundColor: "#222222",
+								}}
+							>
+								<BarCharts confirmedList={confirmedCases} />
+							</div>
+						</div>
+					</div>
 				</>
 			)}
 		</div>

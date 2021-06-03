@@ -14,14 +14,19 @@ const Deaths = ({ data, count }) => {
 			}}
 		>
 			<Totalcards name={name} count={count} color="white" />
-			{dataLists.map((datalet) => (
-				<Statelists
-					count={datalet.number}
-					state={datalet.state}
-					name={name}
-					color="white"
-				/>
-			))}
+			<div
+				style={{ height: "400px", overflowY: "scroll" }}
+				id="scrollStyle1"
+			>
+				{dataLists.map((datalet) => (
+					<Statelists
+						count={datalet.number}
+						state={datalet.state}
+						name={name}
+						color="white"
+					/>
+				))}
+			</div>
 		</div>
 	);
 };

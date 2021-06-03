@@ -14,14 +14,19 @@ const Recovered = ({ data, count }) => {
 			}}
 		>
 			<Totalcards name={name} count={count} color="#70A800" />
-			{dataLists.map((datalet) => (
-				<Statelists
-					count={datalet.number}
-					state={datalet.state}
-					name={name}
-					color="#70A800"
-				/>
-			))}
+			<div
+				style={{ height: "400px", overflowY: "scroll" }}
+				id="scrollStyle1"
+			>
+				{dataLists.map((datalet) => (
+					<Statelists
+						count={datalet.number}
+						state={datalet.state}
+						name={name}
+						color="#70A800"
+					/>
+				))}
+			</div>
 		</div>
 	);
 };
