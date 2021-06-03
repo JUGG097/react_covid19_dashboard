@@ -8,7 +8,11 @@ const Header = () => {
 				<a className="navbar-brand" href>
 					Nigeria Covid-19 Cases Data
 				</a>
-				<a className="nav" href>
+				<a
+					className="nav"
+					href="https://covid19.ncdc.gov.ng/"
+					target="_blank"
+				>
 					NCDC
 				</a>
 			</nav>
