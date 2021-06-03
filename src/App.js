@@ -8,6 +8,7 @@ import Recovered from "./components/Recovered";
 import axios from "axios";
 import loadingGif from "./img/Bean_Eater_Loading.svg";
 import BarCharts from "./components/BarCharts";
+import PieChart from "./components/PieChart";
 
 function App() {
 	const [confirmedCases, setConfirmedCases] = useState([]);
@@ -16,22 +17,20 @@ function App() {
 	const [totalConfirmed, setTotalConfirmed] = useState(0);
 	const [totalDeaths, setTotalDeaths] = useState(0);
 	const [totalRecovered, setTotalRecovered] = useState(0);
+	const [totalActive, setTotalActive] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
 	const getCovidData = () => {
 		setIsLoading(true);
 		axios
 			.get("https://ng-covid-19-api.herokuapp.com/")
 			.then((res) => {
-				console.log(res.data);
+				// console.log(res.data);
 				let statename;
-				let statelist = [];
-				let confirmedNumber = [];
+
 				let confirmedCasesArray = [];
 				let deathCasesArray = [];
 				let recoveredCasesArray = [];
 				for (statename of Object.keys(res.data.states)) {
-					// statelist.push(statename);
-					// confirmedNumber.push()
 					confirmedCasesArray.push({
 						state: statename,
 						number: res.data.states[statename][0]["confirmed"],
@@ -49,9 +48,16 @@ function App() {
 					setConfirmedCases(confirmedCasesArray);
 					setDeathCases(deathCasesArray);
 					setRecoveredCases(recoveredCasesArray);
-					setTotalConfirmed(res.data.summary["Confirmed Cases"]);
-					setTotalDeaths(res.data.summary["Death"]);
-					setTotalRecovered(res.data.summary["Discharged Cases"]);
+					setTotalConfirmed(
+						res.data.summary["Confirmed Cases"].replace(/,/g, "")
+					);
+					setTotalDeaths(res.data.summary["Death"].replace(/,/g, ""));
+					setTotalRecovered(
+						res.data.summary["Discharged Cases"].replace(/,/g, "")
+					);
+					setTotalActive(
+						res.data.summary["Active Cases"].replace(/,/g, "")
+					);
 					setIsLoading(false);
 				}, 3000);
 			})
@@ -77,16 +83,16 @@ function App() {
 							color: "white",
 						}}
 					>
-						...fetching the data
+						...fetching Covid data
 					</p>
 				</div>
 			) : (
 				<>
 					{/* Covid-19 data by state */}
-					<div className="row">
+					<div className="row mt-2">
 						{/* custom scrollbars */}
 						{/* https://codepen.io/devstreak/pen/dMYgeO */}
-						<div className="col-sm-3 mt-5">
+						<div className="col-sm-3 mb-4">
 							<div>
 								<Confirmedcases
 									data={confirmedCases}
@@ -94,7 +100,7 @@ function App() {
 								/>
 							</div>
 						</div>
-						<div className="col-sm-3 mt-5">
+						<div className="col-sm-3 mb-4">
 							<div className="text-center">
 								<div class="embed-responsive embed-responsive-4by3">
 									<iframe
@@ -121,12 +127,12 @@ function App() {
 								</button>
 							</div>
 						</div>
-						<div className="col-sm-3 mt-5">
+						<div className="col-sm-3 mb-4">
 							<div>
 								<Deaths data={deathCases} count={totalDeaths} />
 							</div>
 						</div>
-						<div className="col-sm-3 mt-5 pb-2">
+						<div className="col-sm-3 mb-4">
 							<div>
 								<Recovered
 									data={recoveredCases}
@@ -137,15 +143,48 @@ function App() {
 					</div>
 
 					{/* Covid-19 data based charts */}
-					<h3>Charts</h3>
+					<h3
+						className="text-center mt-3"
+						style={{
+							color: "white",
+						}}
+					>
+						Summary Charts
+					</h3>
 					<div className="row text-center">
-						<div className="col-sm-3 mt-5 p-3">
+						<div className="col-sm-6 p-3">
 							<div
+								className="ml-2 mr-2"
 								style={{
 									backgroundColor: "#222222",
+									borderRadius: "10px",
 								}}
 							>
-								<BarCharts confirmedList={confirmedCases} />
+								<BarCharts
+									style={{}}
+									confirmedCases={totalConfirmed}
+									activeCases={totalActive}
+									deaths={totalDeaths}
+									recovered={totalRecovered}
+								/>
+							</div>
+						</div>
+
+						<div className="col-sm-6 p-3" style={{}}>
+							<div
+								className="ml-2 mr-2"
+								style={{
+									backgroundColor: "#222222",
+									borderRadius: "10px",
+								}}
+							>
+								<PieChart
+									style={{}}
+									confirmedCases={totalConfirmed}
+									activeCases={totalActive}
+									deaths={totalDeaths}
+									recovered={totalRecovered}
+								/>
 							</div>
 						</div>
 					</div>

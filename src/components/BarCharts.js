@@ -1,39 +1,18 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 
-const BarCharts = ({ confirmedList }) => {
-	const statelist = confirmedList.map((listes) => listes.state);
-	const confirmedCaseslist = confirmedList.map((listes) =>
-		// parseInt(listes.number)
-		parseInt(listes.number.replace(/,/g, ""))
-	);
-	console.log(confirmedCaseslist);
+const BarCharts = ({ confirmedCases, activeCases, deaths, recovered }) => {
+	// console.log(confirmedCases);
 	const state = {
-		// labels: [
-		// 	"January",
-		// 	"February",
-		// 	"March",
-		// 	"April",
-		// 	"May",
-		// 	"January",
-		// 	"February",
-		// 	"March",
-		// 	"April",
-		// 	"May",
-		// 	"January",
-		// 	"February",
-		// 	"March",
-		// 	"April",
-		// 	"May",
-		// ],
-		labels: statelist,
+		labels: ["Confirmed Cases", "Active Cases", "Death", "Recovered"],
 		datasets: [
 			{
-				label: "Confirmed Cases",
-				backgroundColor: "red",
+				label: "Cases Count",
+				backgroundColor: ["#B21F00", "#C9DE00", "#00A6B4", "#2FDE00"],
 				borderColor: "rgba(0,0,0,1)",
 				borderWidth: 2,
-				data: confirmedCaseslist,
+				color: "white",
+				data: [confirmedCases, activeCases, deaths, recovered],
 			},
 		],
 	};
@@ -41,22 +20,50 @@ const BarCharts = ({ confirmedList }) => {
 	return (
 		<div>
 			<Bar
-				height="400px"
-				width="300px"
 				data={state}
+				height={300}
+				// width={"250px"}
+
 				options={{
+					mainAspectRatio: false,
 					title: {
 						display: true,
 						text: "Average Rainfall per month",
 						fontSize: 20,
+						color: "white",
 					},
 					legend: {
 						display: true,
 						position: "right",
+						color: "white",
 					},
 				}}
 			/>
 		</div>
+		// <div
+		// 	className="chart-container"
+		// 	style={{ position: "relative", height: "300px", width: "300px" }}
+		// >
+		// 	{" "}
+		// 	<Bar
+		// 		data={state}
+		// 		height={"300px"}
+		// 		width={"250px"}
+		// 		options={{
+		// 			mainAspectRatio: false,
+		// 			title: {
+		// 				display: true,
+		// 				text: "Average Rainfall per month",
+		// 				fontSize: 20,
+		// 				fontColor: "white",
+		// 			},
+		// 			legend: {
+		// 				display: true,
+		// 				position: "right",
+		// 			},
+		// 		}}
+		// 	/>{" "}
+		// </div>
 	);
 };
 

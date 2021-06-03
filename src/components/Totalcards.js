@@ -4,6 +4,7 @@ import styles from "./Totalcards.module.css";
 const Totalcards = ({ name, count, color }) => {
 	// const name = "Confirmed";
 	// const count = 12000;
+	// console.log(Number(count).toLocaleString());
 	return (
 		<div className={styles.Totalcards}>
 			<p
@@ -19,7 +20,7 @@ const Totalcards = ({ name, count, color }) => {
 					fontSize: "2rem",
 				}}
 			>
-				{count}
+				{Number(count).toLocaleString()}
 			</p>
 		</div>
 	);
