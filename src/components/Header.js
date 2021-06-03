@@ -12,6 +12,7 @@ const Header = () => {
 					className="nav"
 					href="https://covid19.ncdc.gov.ng/"
 					target="_blank"
+					rel="noreferrer"
 				>
 					NCDC
 				</a>

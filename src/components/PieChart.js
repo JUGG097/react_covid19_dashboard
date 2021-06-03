@@ -1,5 +1,5 @@
 import React from "react";
-import { Pie, Doughnut } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 
 const PieChart = ({ confirmedCases, activeCases, deaths, recovered }) => {
 	const state = {
