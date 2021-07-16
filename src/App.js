@@ -6,10 +6,12 @@ import Confirmedcases from "./components/Confirmedcases";
 import Deaths from "./components/Deaths";
 import Recovered from "./components/Recovered";
 import axios from "axios";
-import loadingGif from "./img/Bean_Eater_Loading.svg";
+import loadingGif from "./img/Bean_Eater_Loading.gif";
+import errorGif from "./img/error_lighter.gif";
 import BarCharts from "./components/BarCharts";
-import PieChart from "./components/PieChart";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+// import PieChart from "./components/PieChart";
+import Footer from "./components/Footer";
+import MapViz from "./components/MapViz";
 
 function App() {
 	const [confirmedCases, setConfirmedCases] = useState([]);
@@ -20,6 +22,7 @@ function App() {
 	const [totalRecovered, setTotalRecovered] = useState(0);
 	const [totalActive, setTotalActive] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
+	const [errorFetching, setErrorFetching] = useState(false);
 	const getCovidData = () => {
 		setIsLoading(true);
 		axios
@@ -62,193 +65,131 @@ function App() {
 					setIsLoading(false);
 				}, 3000);
 			})
-			.catch((err) => {});
+			.catch((err) => {
+				setIsLoading(false);
+				setErrorFetching(true);
+			});
 	};
-
-	let d = new Date();
-	let yearDate = d.getFullYear();
 
 	useEffect(() => {
 		getCovidData();
 	}, []);
+
 	return (
 		<div>
 			<Header />
-			{isLoading ? (
-				<div className="text-center">
-					{" "}
-					<img
-						className="img-fluid"
-						src={loadingGif}
-						alt="Loading GIF"
-					></img>{" "}
-					<p
-						style={{
-							color: "white",
-						}}
-					>
-						...fetching Covid data
-					</p>
-				</div>
-			) : (
-				<>
-					{/* Covid-19 data by state */}
-					<div className="row mt-2">
-						{/* custom scrollbars */}
-						{/* https://codepen.io/devstreak/pen/dMYgeO */}
-						<div className="col-sm-3 mb-4">
-							<div>
-								<Confirmedcases
-									data={confirmedCases}
-									count={totalConfirmed}
-								/>
-							</div>
-						</div>
-						<div className="col-sm-3 mb-4">
-							<div className="text-center">
-								<div class="embed-responsive embed-responsive-4by3">
-									<iframe
-										className="embed-responsive-item"
-										src="https://folium-choropleth-map.herokuapp.com"
-										title="Chloropeth Map"
-										allowfullscreen
+			<div className="container">
+				{isLoading ? (
+					<div className="text-center">
+						<img
+							className="img-fluid"
+							src={loadingGif}
+							alt="Loading GIF"
+						></img>
+						<p
+							style={{
+								color: "white",
+							}}
+						>
+							...fetching Covid data
+						</p>
+					</div>
+				) : errorFetching ? (
+					<div className="text-center">
+						<img
+							className="img-fluid"
+							src={errorGif}
+							alt="Loading GIF"
+						></img>
+						<h3
+							style={{
+								color: "white",
+							}}
+						>
+							Error Fetching Data, Please Check Connection and
+							Refresh
+						</h3>
+					</div>
+				) : (
+					<>
+						{/* Covid-19 data by state */}
+						<div className="row mt-2">
+							{" "}
+							{/* custom scrollbars */}
+							{/* https://codepen.io/devstreak/pen/dMYgeO */}
+							<div className="col-sm-4 mb-4">
+								<div>
+									<Confirmedcases
+										data={confirmedCases}
+										count={totalConfirmed}
 									/>
 								</div>
-								<button
-									className="btn btn-primary"
+							</div>
+							<div className="col-sm-4 mb-4">
+								<div>
+									<Deaths
+										data={deathCases}
+										count={totalDeaths}
+									/>
+								</div>
+							</div>
+							<div className="col-sm-4 mb-4">
+								<div>
+									<Recovered
+										data={recoveredCases}
+										count={totalRecovered}
+									/>
+								</div>
+							</div>
+						</div>
+
+						{/* Map Visualization */}
+						<h3
+							className="text-center mt-3"
+							style={{
+								color: "white",
+							}}
+						>
+							Map Visualization
+							<i>(best viewed on large screen)</i>
+						</h3>
+						<div className="row">
+							<MapViz />
+						</div>
+
+						{/* Covid-19 data based charts */}
+						<h3
+							className="text-center mt-3"
+							style={{
+								color: "white",
+							}}
+						>
+							Summary Chart
+						</h3>
+						<div className="row text-center ">
+							<div className="col-sm-8 p-3 mx-auto">
+								<div
+									className="ml-2 mr-2 p-1"
 									style={{
-										margin: 0,
-										backgroundColor: "orange",
+										backgroundColor: "#222222",
+										borderRadius: "10px",
 									}}
 								>
-									<a
-										href="https://folium-choropleth-map.herokuapp.com"
-										target="_blank"
-										rel="noreferrer"
-									>
-										Launch Map
-									</a>
-								</button>
+									<BarCharts
+										style={{}}
+										confirmedCases={totalConfirmed}
+										activeCases={totalActive}
+										deaths={totalDeaths}
+										recovered={totalRecovered}
+									/>
+								</div>
 							</div>
 						</div>
-						<div className="col-sm-3 mb-4">
-							<div>
-								<Deaths data={deathCases} count={totalDeaths} />
-							</div>
-						</div>
-						<div className="col-sm-3 mb-4">
-							<div>
-								<Recovered
-									data={recoveredCases}
-									count={totalRecovered}
-								/>
-							</div>
-						</div>
-					</div>
+					</>
+				)}
+			</div>
 
-					{/* Covid-19 data based charts */}
-					<h3
-						className="text-center mt-3"
-						style={{
-							color: "white",
-						}}
-					>
-						Summary Charts
-					</h3>
-					<div className="row text-center">
-						<div className="col-sm-6 p-3">
-							<div
-								className="ml-2 mr-2"
-								style={{
-									backgroundColor: "#222222",
-									borderRadius: "10px",
-								}}
-							>
-								<BarCharts
-									style={{}}
-									confirmedCases={totalConfirmed}
-									activeCases={totalActive}
-									deaths={totalDeaths}
-									recovered={totalRecovered}
-								/>
-							</div>
-						</div>
-
-						<div className="col-sm-6 p-3" style={{}}>
-							<div
-								className="ml-2 mr-2"
-								style={{
-									backgroundColor: "#222222",
-									borderRadius: "10px",
-								}}
-							>
-								<PieChart
-									style={{}}
-									confirmedCases={totalConfirmed}
-									activeCases={totalActive}
-									deaths={totalDeaths}
-									recovered={totalRecovered}
-								/>
-							</div>
-						</div>
-					</div>
-
-					<div
-						style={{
-							backgroundColor: "#222222",
-							borderRadius: "10px",
-							paddingTop: ".2rem",
-						}}
-					>
-						<div className="row mt-4">
-							<div className="col-sm-12 text-center">
-								<span>
-									<a href="https://github.com/JUGG097/react_covid19_dashboard">
-										<FaGithub
-											style={{
-												color: "white",
-												fontSize: "1.5rem",
-											}}
-										/>
-									</a>
-								</span>
-
-								<span className="mr-4 ml-4">
-									<a href="https://www.linkedin.com/in/adeoluwa-adeboye-051057146/">
-										<FaLinkedin
-											style={{
-												color: "#0e76a8",
-												fontSize: "1.5rem",
-											}}
-										/>
-									</a>
-								</span>
-
-								<span>
-									<a href="https://twitter.com/adeneye97">
-										<FaTwitter
-											style={{
-												color: "#1DA1F2",
-												fontSize: "1.5rem",
-											}}
-										/>
-									</a>
-								</span>
-							</div>
-						</div>
-						<div className="row mt-3">
-							<div
-								className="col-sm-12 text-center"
-								style={{
-									color: "white",
-								}}
-							>
-								<p>Copyright &copy; {yearDate}</p>
-							</div>
-						</div>
-					</div>
-				</>
-			)}
+			<Footer />
 		</div>
 	);
 }

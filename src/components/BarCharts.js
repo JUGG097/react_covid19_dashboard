@@ -1,17 +1,58 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
+
+import Chart from "react-apexcharts";
 
 const BarCharts = ({ confirmedCases, activeCases, deaths, recovered }) => {
 	// console.log(confirmedCases);
 	const state = {
-		labels: ["Confirmed Cases", "Active Cases", "Death", "Recovered"],
-		datasets: [
+		options: {
+			chart: {
+				id: "basic-bar",
+				background: "#222222",
+			},
+
+			xaxis: {
+				categories: [
+					"ConfirmedCases",
+					"ActiveCases",
+					"Recovered",
+					"Death",
+				],
+				labels: {
+					show: true,
+					style: {
+						colors: ["red", "white", "green", "white"],
+						fontSize: "12px",
+						fontFamily: "Helvetica, Arial, sans-serif",
+						fontWeight: 400,
+						cssClass: "apexcharts-xaxis-label",
+					},
+				},
+			},
+			yaxis: {
+				labels: {
+					show: true,
+					style: {
+						colors: ["white"],
+						fontSize: "12px",
+						fontFamily: "Helvetica, Arial, sans-serif",
+						fontWeight: 400,
+						cssClass: "apexcharts-xaxis-label",
+					},
+				},
+			},
+			plotOptions: {
+				bar: {
+					dataLabels: {
+						position: "top",
+					},
+				},
+			},
+			colors: ["#FF0000", "#ffffff", "#00FF00", "#ffffff"],
+		},
+		series: [
 			{
-				label: "Cases Count",
-				backgroundColor: ["#B21F00", "#C9DE00", "#00A6B4", "#2FDE00"],
-				borderColor: "rgba(0,0,0,1)",
-				borderWidth: 2,
-				color: "white",
+				name: "Cases",
 				data: [confirmedCases, activeCases, deaths, recovered],
 			},
 		],
@@ -19,51 +60,14 @@ const BarCharts = ({ confirmedCases, activeCases, deaths, recovered }) => {
 
 	return (
 		<div>
-			<Bar
-				data={state}
-				height={300}
-				// width={"250px"}
-
-				options={{
-					mainAspectRatio: false,
-					title: {
-						display: true,
-						text: "Average Rainfall per month",
-						fontSize: 20,
-						color: "white",
-					},
-					legend: {
-						display: true,
-						position: "right",
-						color: "white",
-					},
-				}}
+			<Chart
+				options={state.options}
+				series={state.series}
+				type="bar"
+				width="100%"
+				height="300px"
 			/>
 		</div>
-		// <div
-		// 	className="chart-container"
-		// 	style={{ position: "relative", height: "300px", width: "300px" }}
-		// >
-		// 	{" "}
-		// 	<Bar
-		// 		data={state}
-		// 		height={"300px"}
-		// 		width={"250px"}
-		// 		options={{
-		// 			mainAspectRatio: false,
-		// 			title: {
-		// 				display: true,
-		// 				text: "Average Rainfall per month",
-		// 				fontSize: 20,
-		// 				fontColor: "white",
-		// 			},
-		// 			legend: {
-		// 				display: true,
-		// 				position: "right",
-		// 			},
-		// 		}}
-		// 	/>{" "}
-		// </div>
 	);
 };
 
