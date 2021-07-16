@@ -1,0 +1,9 @@
+.footer_container {
+    background-color: #222222;
+    border-radius: 10px;
+    padding-top: .2rem;
+}
+
+.footer_container a {
+    text-decoration: none;
+}
