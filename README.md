@@ -1,4 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Nigeria Covid Dashboard by Adeoluwa
 
-### NIgeria Covid 19 Dashboard
-A one page dashboard with real-time Covid19 Cases Number for Nigeria
+A single page dashboard with real-time Covid Cases for Nigeria.
+
+This project/webpage was developed using `React` v "^17.0.2", `Bootstrap` v "4.1.0", `Axios` v "0.21.1" and `React-Apexcharts` v "^1.3.9" libraries.
+
+Deployed with `Netlify` link [here](https://mycovid19-dashboard.netlify.app/).
+
+You can clone project and customise.
