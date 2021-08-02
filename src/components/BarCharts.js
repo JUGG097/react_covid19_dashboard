@@ -15,13 +15,13 @@ const BarCharts = ({ confirmedCases, activeCases, deaths, recovered }) => {
 				categories: [
 					"ConfirmedCases",
 					"ActiveCases",
-					"Recovered",
 					"Death",
+					"Recovered",
 				],
 				labels: {
 					show: true,
 					style: {
-						colors: ["red", "white", "green", "white"],
+						colors: ["red", "white", "grey", "green"],
 						fontSize: "12px",
 						fontFamily: "Helvetica, Arial, sans-serif",
 						fontWeight: 400,

@@ -78,7 +78,7 @@ function App() {
 	return (
 		<div>
 			<Header />
-			<div className="container">
+			<div>
 				{isLoading ? (
 					<div className="text-center">
 						<img
@@ -112,84 +112,85 @@ function App() {
 					</div>
 				) : (
 					<>
-						{/* Covid-19 data by state */}
-						<div className="row mt-2">
-							{" "}
-							{/* custom scrollbars */}
-							{/* https://codepen.io/devstreak/pen/dMYgeO */}
-							<div className="col-sm-4 mb-4">
-								<div>
-									<Confirmedcases
-										data={confirmedCases}
-										count={totalConfirmed}
-									/>
+						<div className="container">
+							{/* Covid-19 data by state */}
+							<div className="row mt-2">
+								{" "}
+								{/* custom scrollbars */}
+								{/* https://codepen.io/devstreak/pen/dMYgeO */}
+								<div className="col-sm-4 mb-4">
+									<div>
+										<Confirmedcases
+											data={confirmedCases}
+											count={totalConfirmed}
+										/>
+									</div>
+								</div>
+								<div className="col-sm-4 mb-4">
+									<div>
+										<Deaths
+											data={deathCases}
+											count={totalDeaths}
+										/>
+									</div>
+								</div>
+								<div className="col-sm-4 mb-4">
+									<div>
+										<Recovered
+											data={recoveredCases}
+											count={totalRecovered}
+										/>
+									</div>
 								</div>
 							</div>
-							<div className="col-sm-4 mb-4">
-								<div>
-									<Deaths
-										data={deathCases}
-										count={totalDeaths}
-									/>
-								</div>
-							</div>
-							<div className="col-sm-4 mb-4">
-								<div>
-									<Recovered
-										data={recoveredCases}
-										count={totalRecovered}
-									/>
-								</div>
-							</div>
-						</div>
 
-						{/* Map Visualization */}
-						<h3
-							className="text-center mt-3"
-							style={{
-								color: "white",
-							}}
-						>
-							Map Visualization
-							<i>(best viewed on large screen)</i>
-						</h3>
-						<div className="row">
-							<MapViz />
-						</div>
+							{/* Map Visualization */}
+							<h3
+								className="text-center mt-3"
+								style={{
+									color: "white",
+								}}
+							>
+								Map Visualization
+								<i>(best viewed on large screen)</i>
+							</h3>
+							<div className="row">
+								<MapViz />
+							</div>
 
-						{/* Covid-19 data based charts */}
-						<h3
-							className="text-center mt-3"
-							style={{
-								color: "white",
-							}}
-						>
-							Summary Chart
-						</h3>
-						<div className="row text-center ">
-							<div className="col-sm-8 p-3 mx-auto">
-								<div
-									className="ml-2 mr-2 p-1"
-									style={{
-										backgroundColor: "#222222",
-										borderRadius: "10px",
-									}}
-								>
-									<BarCharts
-										style={{}}
-										confirmedCases={totalConfirmed}
-										activeCases={totalActive}
-										deaths={totalDeaths}
-										recovered={totalRecovered}
-									/>
+							{/* Covid-19 data based charts */}
+							<h3
+								className="text-center mt-3"
+								style={{
+									color: "white",
+								}}
+							>
+								Summary Chart
+							</h3>
+							<div className="row text-center ">
+								<div className="col-sm-8 p-3 mx-auto">
+									<div
+										className="ml-2 mr-2 p-1"
+										style={{
+											backgroundColor: "#222222",
+											borderRadius: "10px",
+										}}
+									>
+										<BarCharts
+											style={{}}
+											confirmedCases={totalConfirmed}
+											activeCases={totalActive}
+											deaths={totalDeaths}
+											recovered={totalRecovered}
+										/>
+									</div>
 								</div>
 							</div>
 						</div>
+						<Footer />
 					</>
 				)}
 			</div>
-
-			<Footer />
 		</div>
 	);
 }
